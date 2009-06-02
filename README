@@ -22,7 +22,7 @@ template
 
 Run the rails command and pass in the main template:
 
-$ rails foo -m template/main.template.rb
+$ rails foo -m ./rails-template/main.template.rb
 
 This will prompt once for your password (when you run sudo rake gems:install), but other than that it's all automated.  
 
