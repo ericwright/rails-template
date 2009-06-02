@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/boot'
+require File.dirname(__FILE__) + '/../config/environment'
+ActiveRecord::Base.establish_connection
+ENV["RAILS_ENV"] = RAILS_ENV
+
+fail 'Your rails env is set to production, so you can not run this script. ' if RAILS_ENV == 'production'
+
+config = YAML::load(File.open("#{RAILS_ROOT}/config/database.yml"))
+db = config[RAILS_ENV]
+db_path = RAILS_ROOT + '/' + db["database"]
+
+puts "Removing #{db['database']}..."
+system "rm #{db_path}"
+
+puts "Running Migrations..."
+system "rake db:migrate"
+
+puts "Loading Fixtures..."
+system "rake db:fixtures:load"
+
+puts "Done"
+
+

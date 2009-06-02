@@ -1,0 +1,18 @@
+eric:
+  email: eric@eric.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.                encrypt("eric" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+jess:
+  email: jess@jess.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.                encrypt("jess" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+mark:
+  email: mark@mark.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.                encrypt("mark" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+

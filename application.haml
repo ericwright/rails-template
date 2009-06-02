@@ -1,0 +1,36 @@
+!!!
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", 'xml:lang' => "en" }
+  %head
+    %title Title
+    %meta{ 'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8' }/
+    = stylesheet_link_tag 'reset'
+    = stylesheet_link_tag 'main'
+    =# javascript_link_tag 'jquery'
+    %script{ :type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"}
+    - if protect_against_forgery? 
+      %script{ :type => "text/javascript" }
+        //<![CDATA[
+        window._auth_token_name = "#{request_forgery_protection_token}";
+        window._auth_token = "#{form_authenticity_token}";
+        //]]>
+
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'main'
+
+		
+  %body
+    #flashes
+      - flash.each do |key, msg|
+        %div{ :class => "flash_#{key}"}= msg
+
+    #user_nav
+      - if current_user
+        %p= "Welcome, #{current_user[:email]}"
+        = link_to "Edit Profile", edit_user_path(:current)
+        = link_to "Logout", logout_path
+      - else
+        = link_to "Register", new_user_path
+        = link_to "Login", login_path
+        
+    = yield
+
